@@ -18,16 +18,15 @@ An educational webapp where:
 ```
 smart-warming/
 ├── content/                # Production content
-│   ├── games/             # Game 1, Game 2, Game 3... (TODO)
-│   └── articles/          # Article A, Article B, Article C... (TODO)
-├── webapp/                # SPA that renders everything (TODO)
+│   ├── games/             # Interactive games
+│   └── articles/          # Data analysis articles
+├── webapp/                # SPA that renders everything
 │   ├── src/
 │   └── content-map.json   # Defines game↔article links
 ├── design/                # Design assets and documentation
 ├── onboarding/            # Learning space
 │   └── python-tutorial/   # Beginner Python tutorial (READY ✅)
-├── shared/                # Common utilities (TODO)
-└── PROJECT_CONTEXT.md     # Full context for AI handoff
+└── shared/                # Common utilities
 ```
 
 ## 🚀 Getting Started
@@ -38,12 +37,11 @@ smart-warming/
 3. Follow the step-by-step Python tutorial
 4. Create a working CO2 visualization demo
 
-### For Production Content (TODO)
-1. Check `PROJECT_CONTEXT.md` for full technical details
-2. Create games in `content/games/`
-3. Create articles in `content/articles/`
-4. Build webapp that links them via `content-map.json`
-5. Use free hosting (Vercel/Netlify)
+### For Production Content
+1. Create games in `content/games/`
+2. Create articles in `content/articles/`
+3. Test webapp that links them via `content-map.json`
+4. Create PR to github and see your changes online
 
 ## Current Status
 
@@ -54,17 +52,17 @@ smart-warming/
 - **Learning resources**: Install guides, troubleshooting, concepts
 
 ### 🔄 Next Steps
-- **Production games**: Create games in `content/games/`
-- **Production articles**: Create data analysis articles in `content/articles/`
-- **WebApp**: SPA that renders content and manages links
-- **Content mapping**: Define game↔article relationships
+- **More games**: Add new games in `content/games/`
+- **More articles**: Create new analysis articles in `content/articles/`
+- **Enhanced webapp**: Add features and improve UI
+- **Real data**: Replace demo data with actual environmental statistics
 
 ## 🛠️ Technology
 
 **Data Analysis**: Python, matplotlib, Carbon Intensity API  
-**Games**: JavaScript/TypeScript, Canvas/WebGL, Linear Algebra  
+**Games**: JavaScript/TypeScript, Canvas/WebGL 
 **WebApp**: Modern framework, SPA architecture  
-**Hosting**: Free (Vercel, Netlify, GitHub Pages)
+**Hosting**: Netlify
 
 ## 🎯 Project Philosophy
 
@@ -82,5 +80,5 @@ Free public usage
 
 **Start here**: 
 - **New to programming?** → `onboarding/python-tutorial/README.md`
-- **Want full context?** → `PROJECT_CONTEXT.md` 
-- **Continue development?** → Copy PROJECT_CONTEXT.md to another AI
+- **Ready for real work?** → `content/articles/pigeon-analysis/README.md`
+- **Want to see the website?** → Open `webapp/index.html` in browser

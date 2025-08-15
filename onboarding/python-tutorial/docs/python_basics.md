@@ -6,39 +6,128 @@ Welcome! Let's build your CO2 demo step by step.
 
 1. Go to the demo folder
 2. Create a file called `my_demo.py` in the demo folder
-3. Type a print statement to say hello
-4. Open terminal in demo folder and run: `python my_demo.py`
-5. You should see your message appear
+3. Type this exact code in your file:
+```python
+# My first Python program!
+print("Hello, I'm learning Python!")
+print("I'm going to analyze environmental data!")
+```
+4. Save the file
+5. Open terminal/command prompt in demo folder and run: `python my_demo.py`
+6. You should see your messages appear in the terminal
 
-**Learn how:** Search "Python print statement" or ask for help
+**Success:** You should see both messages printed out
 
 ## Step 2: Get Data from the Internet (15 minutes)
 
-1. Learn about the `import` statement to get tools
-2. Use the `requests` library to fetch data
-3. Get data from: `https://api.carbonintensity.org.uk/intensity`
-4. Convert the response to JSON format
-5. Print the CO2 level to see if it worked
+Now let's get real environmental data! Replace your code with this:
 
-**Learn how:** Read [What is an API?](what_is_api.md) first
+```python
+# Import tools we need
+import requests
+import json
+
+# Get CO2 data from UK Carbon Intensity API
+print("Getting CO2 data from the internet...")
+response = requests.get("https://api.carbonintensity.org.uk/intensity")
+
+# Convert response to data we can use
+data = response.json()
+co2_level = data['data'][0]['intensity']['actual']
+
+print(f"Current CO2 intensity: {co2_level} gCO2/kWh")
+```
+
+Run this and you should see the current CO2 level!
+
+**Success:** You should see a number like "Current CO2 intensity: 245 gCO2/kWh"
 
 ## Step 3: Make a Chart (15 minutes)
 
-1. Import matplotlib for making charts
-2. Extract the CO2 number from your data
-3. Create a bar chart with the CO2 level
-4. Add a title and labels to your chart
-5. Save the chart as a PNG file to the output folder
+Now let's create a visual chart! Replace your code with this complete version:
 
-**Learn how:** Search "matplotlib bar chart tutorial" 
+```python
+# Import tools we need
+import requests
+import json
+import matplotlib.pyplot as plt
+import os
+
+# Get CO2 data from UK Carbon Intensity API
+print("Getting CO2 data from the internet...")
+response = requests.get("https://api.carbonintensity.org.uk/intensity")
+
+# Convert response to data we can use
+data = response.json()
+co2_level = data['data'][0]['intensity']['actual']
+
+print(f"Current CO2 intensity: {co2_level} gCO2/kWh")
+
+# Create a simple bar chart
+plt.figure(figsize=(8, 6))
+plt.bar(['Current CO2 Level'], [co2_level], color='red')
+plt.title('UK Carbon Intensity Right Now')
+plt.ylabel('CO2 (gCO2/kWh)')
+plt.ylim(0, max(500, co2_level + 50))
+
+# Save chart to output folder
+plt.savefig('output/my_chart.png')
+plt.close()
+
+print("Chart saved to: output/my_chart.png")
+```
+
+**Success:** You should see "Chart saved to: output/my_chart.png" and find a PNG file in your output folder! 
 
 ## Step 4: Save Data File (10 minutes)
 
-1. Import json and os libraries
-2. Save your raw data as a JSON file (output folder already exists)
-3. Add print statements to confirm everything worked
+Finally, let's save our data for the website to use! Here's your complete final program:
 
-**Learn how:** Search "Python save JSON file"
+```python
+# Import tools we need
+import requests
+import json
+import matplotlib.pyplot as plt
+import os
+
+# Get CO2 data from UK Carbon Intensity API
+print("Getting CO2 data from the internet...")
+response = requests.get("https://api.carbonintensity.org.uk/intensity")
+
+# Convert response to data we can use
+data = response.json()
+co2_level = data['data'][0]['intensity']['actual']
+
+print(f"Current CO2 intensity: {co2_level} gCO2/kWh")
+
+# Create a simple bar chart
+plt.figure(figsize=(8, 6))
+plt.bar(['Current CO2 Level'], [co2_level], color='red')
+plt.title('UK Carbon Intensity Right Now')
+plt.ylabel('CO2 (gCO2/kWh)')
+plt.ylim(0, max(500, co2_level + 50))
+
+# Save chart to output folder
+plt.savefig('output/my_chart.png')
+plt.close()
+
+print("Chart saved to: output/my_chart.png")
+
+# Save data as JSON file for website to use
+data_to_save = {
+    'co2_level': co2_level,
+    'timestamp': data['data'][0]['from'],
+    'message': f'CO2 intensity is {co2_level} gCO2/kWh'
+}
+
+with open('output/co2_data.json', 'w') as f:
+    json.dump(data_to_save, f, indent=2)
+
+print("Data saved to: output/co2_data.json")
+print("🎉 Your analysis is complete!")
+```
+
+**Success:** You should see both success messages and have 2 files in your output folder!
 
 ## Test Your Demo
 

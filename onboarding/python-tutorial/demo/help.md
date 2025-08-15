@@ -1,1 +1,1 @@
-You can write here your thoughts when nothing works and existential dread creeps in.
+here you can write your thoughts when the existential dread creeps in.

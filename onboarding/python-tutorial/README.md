@@ -15,13 +15,13 @@ A Python program that:
 
 You'll work in the demo folder where everything is ready:
 ```
-data-analysis/
+onboarding/python-tutorial/
 ├── demo/               # Work in here
-│   ├── my_demo.py      # Your Python code goes here
+│   ├── my_demo.py      # Your Python code goes here (you'll create this)
 │   ├── output/         # Your results go here (already created)
 │   │   ├── co2_data.json   # Data file (you'll create this)
 │   │   └── my_chart.png    # Picture of your chart (you'll create this)
-│   └── my_notes.md     # Write what you learned
+│   └── my_notes.md     # Write what you learned (you'll create this)
 ├── docs/               # Learning resources
 └── requirements.txt    # Python packages needed
 ```
@@ -77,7 +77,7 @@ data-analysis/
 - [Common Python Errors](docs/common_errors.md) - Fix red error messages
 - [Ask for Help](https://github.com/your-repo/issues) - Create a question
 
-## 🎉 What Happens Next?
+## Faaaaaaaaaar later on
 
 When you finish this tutorial:
 1. **You learned Python!** - You have real data analysis skills

@@ -21,35 +21,43 @@
         
         .header {
             background: #1a1f2e;
-            padding: 1rem;
-            border-bottom: 2px solid #00ff88;
-        }
-        
-        .nav {
+            border-bottom: 2px solid #333;
             display: flex;
-            gap: 2rem;
-            align-items: center;
+            height: 80px;
         }
         
-        .logo {
+        .header-half {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+            text-decoration: none;
+            color: #888;
             font-size: 1.5rem;
             font-weight: bold;
-            color: #00ff88;
         }
         
-        .nav-link {
-            text-decoration: none;
+        .header-half:hover {
+            background: #2a2f3e;
             color: #00ff88;
-            padding: 0.5rem 1rem;
-            border: 2px solid transparent;
-            border-radius: 4px;
-            transition: all 0.3s;
-        }
-        
-        .nav-link:hover, .nav-link.active {
             border-color: #00ff88;
+        }
+        
+        .header-half.active {
             background: #00ff88;
             color: #0f1419;
+            border-color: #00ff88;
+        }
+        
+        .header-half.games {
+            border-right: 1px solid #333;
+        }
+        
+        .header-half.articles {
+            border-left: 1px solid #333;
         }
         
         .main {
@@ -116,12 +124,12 @@
 </head>
 <body>
     <header class="header">
-        <nav class="nav">
-            <div class="logo">🌍 Smart Warming</div>
-            <a href="index.html" class="nav-link">Home</a>
-            <a href="games.html" class="nav-link">Games</a>
-            <a href="articles.html" class="nav-link active">Articles</a>
-        </nav>
+        <a href="games.html" class="header-half games">
+            🎮 GAMES
+        </a>
+        <div class="header-half articles active">
+            📊 ARTICLES
+        </div>
     </header>
 
     <main class="main">

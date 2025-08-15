@@ -16,146 +16,216 @@
             font-family: Arial, sans-serif;
             background: #0f1419;
             color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
         
         .header {
             background: #1a1f2e;
-            padding: 1rem;
-            border-bottom: 2px solid #00ff88;
-        }
-        
-        .nav {
+            border-bottom: 2px solid #333;
             display: flex;
-            gap: 2rem;
-            align-items: center;
+            height: 80px;
         }
         
-        .logo {
+        .header-half {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+            text-decoration: none;
+            color: #888;
             font-size: 1.5rem;
             font-weight: bold;
-            color: #00ff88;
         }
         
-        .nav-link {
-            text-decoration: none;
+        .header-half:hover {
+            background: #2a2f3e;
             color: #00ff88;
-            padding: 0.5rem 1rem;
-            border: 2px solid transparent;
-            border-radius: 4px;
-            transition: all 0.3s;
-        }
-        
-        .nav-link:hover, .nav-link.active {
             border-color: #00ff88;
-            background: #00ff88;
-            color: #0f1419;
+        }
+        
+        .header-half.games {
+            border-right: 1px solid #333;
+        }
+        
+        .header-half.articles {
+            border-left: 1px solid #333;
         }
         
         .main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             padding: 2rem;
-            max-width: 1200px;
+            text-align: center;
+        }
+        
+        .welcome {
+            max-width: 800px;
             margin: 0 auto;
         }
         
-        
-        .home-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
+        .logo {
+            font-size: 4rem;
+            margin-bottom: 1rem;
         }
         
-        .content-card {
-            background: #1a1f2e;
-            border: 2px solid #333;
-            border-radius: 8px;
-            padding: 1.5rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-decoration: none;
-            color: inherit;
-            display: block;
-        }
-        
-        .content-card:hover {
-            border-color: #00ff88;
-            transform: translateY(-2px);
-        }
-        
-        .content-card h3 {
+        .welcome h1 {
             color: #00ff88;
-            margin: 0 0 0.5rem 0;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: bold;
         }
         
-        .content-card p {
-            margin: 0;
+        .welcome .subtitle {
             color: #ccc;
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
         }
         
+        .goal-section {
+            background: #1a1f2e;
+            padding: 2rem;
+            border-radius: 8px;
+            border: 2px solid #333;
+            margin-bottom: 2rem;
+        }
+        
+        .goal-section h2 {
+            color: #00ff88;
+            margin-bottom: 1rem;
+        }
+        
+        .goal-section p {
+            line-height: 1.8;
+            color: #ddd;
+        }
+        
+        .usefulness-section {
+            background: #2a2f3e;
+            padding: 2rem;
+            border-radius: 8px;
+            border-left: 4px solid #00ff88;
+        }
+        
+        .usefulness-section h2 {
+            color: #00ff88;
+            margin-bottom: 1rem;
+        }
+        
+        .usefulness-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .usefulness-item {
+            padding: 1rem;
+            background: #1a1f2e;
+            border-radius: 4px;
+            border: 1px solid #333;
+        }
+        
+        .usefulness-item h3 {
+            color: #4ade80;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .usefulness-item p {
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+        
+        .hint {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #333;
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid #00ff88;
+            font-size: 0.9rem;
+            color: #ccc;
+            max-width: 300px;
+            animation: fadeInUp 1s ease-out 2s both;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .hint strong {
+            color: #00ff88;
+        }
     </style>
 </head>
 <body>
     <header class="header">
-        <nav class="nav">
-            <div class="logo">🌍 Smart Warming</div>
-            <a href="index.html" class="nav-link active">Home</a>
-            <a href="games.html" class="nav-link">Games</a>
-            <a href="articles.html" class="nav-link">Articles</a>
-        </nav>
+        <a href="games.html" class="header-half games">
+            🎮 GAMES
+        </a>
+        <a href="articles.html" class="header-half articles">
+            📊 ARTICLES
+        </a>
     </header>
 
     <main class="main">
-        <h1>Welcome to Smart Warming</h1>
-        <p>Explore the environmental impact of AI and computing through interactive games and data analysis.</p>
-        
-        <div id="home-grid" class="home-grid">
-            <p>Loading content...</p>
+        <div class="welcome">
+            <div class="logo">🌍</div>
+            <h1>Smart Warming</h1>
+            <p class="subtitle">Understanding AI's Environmental Impact Through Interactive Learning</p>
+            
+            <div class="goal-section">
+                <h2>🎯 Project Goal</h2>
+                <p>
+                    Smart Warming bridges the gap between complex environmental data and public understanding. 
+                    We make AI's environmental impact tangible through interactive games and real data analysis, 
+                    empowering everyone from complete beginners to data scientists to explore, understand, and 
+                    contribute to environmental awareness in the digital age.
+                </p>
+            </div>
+            
+            <div class="usefulness-section">
+                <h2>🌟 Why This Matters</h2>
+                <div class="usefulness-grid">
+                    <div class="usefulness-item">
+                        <h3>🎓 For Students</h3>
+                        <p>Learn Python and data analysis while working on real environmental problems that matter for our future.</p>
+                    </div>
+                    <div class="usefulness-item">
+                        <h3>🔬 For Researchers</h3>
+                        <p>Professional analysis templates and visualization frameworks ready for serious environmental research.</p>
+                    </div>
+                    <div class="usefulness-item">
+                        <h3>🌐 For Everyone</h3>
+                        <p>Interactive games and visual data make complex environmental topics accessible to any audience.</p>
+                    </div>
+                    <div class="usefulness-item">
+                        <h3>🏢 For Organizations</h3>
+                        <p>Educational tools and frameworks to communicate environmental impact and sustainability initiatives.</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
-
-    <script>
-        // Load and display home content
-        async function loadHomeContent() {
-            try {
-                const response = await fetch('content-map.json');
-                const contentMap = await response.json();
-                const homeGrid = document.getElementById('home-grid');
-                
-                let content = '';
-                
-                // Add game cards
-                if (contentMap.games) {
-                    Object.entries(contentMap.games).forEach(([gameId, gameConfig]) => {
-                        content += `
-                            <a href="game.html?id=${gameId}" class="content-card">
-                                <h3>🎮 ${gameConfig.title}</h3>
-                                <p>${gameConfig.description}</p>
-                            </a>
-                        `;
-                    });
-                }
-                
-                // Add article cards
-                if (contentMap.articles) {
-                    Object.entries(contentMap.articles).forEach(([articleId, articleConfig]) => {
-                        content += `
-                            <a href="article.html?id=${articleId}" class="content-card">
-                                <h3>📊 ${articleConfig.title}</h3>
-                                <p>${articleConfig.description}</p>
-                            </a>
-                        `;
-                    });
-                }
-                
-                homeGrid.innerHTML = content || '<p>No content available yet.</p>';
-            } catch (error) {
-                console.error('Failed to load content:', error);
-                document.getElementById('home-grid').innerHTML = '<p>Failed to load content.</p>';
-            }
-        }
-        
-        // Initialize on page load
-        document.addEventListener('DOMContentLoaded', loadHomeContent);
-    </script>
+    
+    <div class="hint">
+        <strong>Tip:</strong> Click either half of the header above to explore games or articles. Once you enter a section, you can only switch between games and articles - this welcome page appears only once per visit!
+    </div>
 </body>
 </html>

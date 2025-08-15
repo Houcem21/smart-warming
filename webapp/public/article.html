@@ -3,236 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Article - Smart Warming</title>
+    <title>Loading Article - Smart Warming</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌍</text></svg>">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: Arial, sans-serif;
-            background: #0f1419;
-            color: #ffffff;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-        
-        .header {
-            background: #1a1f2e;
-            padding: 1rem;
-            border-bottom: 2px solid #00ff88;
-        }
-        
-        .nav {
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-        }
-        
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #00ff88;
-        }
-        
-        .nav-link {
-            text-decoration: none;
-            color: #00ff88;
-            padding: 0.5rem 1rem;
-            border: 2px solid transparent;
-            border-radius: 4px;
-            transition: all 0.3s;
-        }
-        
-        .nav-link:hover {
-            border-color: #00ff88;
-            background: #00ff88;
-            color: #0f1419;
-        }
-        
-        .back-btn {
-            background: transparent;
-            border: 1px solid #888;
-            color: #888;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-decoration: none;
-            display: inline-block;
-        }
-        
-        .back-btn:hover {
-            border-color: #00ff88;
-            color: #00ff88;
-        }
-        
-        .main {
-            padding: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .article-header {
-            margin-bottom: 2rem;
-        }
-        
-        .article-header h1 {
-            color: #00ff88;
-            margin: 1rem 0 0.5rem 0;
-        }
-        
-        .article-frame {
-            width: 100%;
-            height: 80vh;
-            border: 2px solid #00ff88;
-            border-radius: 8px;
-            background: #000;
-        }
-        
-        .related-content {
-            margin-top: 2rem;
-            padding: 2rem;
-            background: #1a1f2e;
-            border-radius: 8px;
-            border: 2px solid #333;
-        }
-        
-        .related-content h3 {
-            color: #00ff88;
-            margin: 0 0 1rem 0;
-        }
-        
-        .related-links {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-        
-        .related-link {
-            background: #00ff88;
-            color: #0f1419;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: all 0.3s;
-        }
-        
-        .related-link:hover {
-            background: #00cc77;
-            transform: translateY(-2px);
-        }
-        
-        .python-note {
-            margin-top: 1rem;
-            padding: 1rem;
-            background: #2a2f3e;
-            border-left: 4px solid #00ff88;
-            border-radius: 4px;
-        }
-        
-        .python-note strong {
-            color: #00ff88;
-        }
-    </style>
 </head>
 <body>
-    <header class="header">
-        <nav class="nav">
-            <div class="logo">🌍 Smart Warming</div>
-            <a href="index.html" class="nav-link">Home</a>
-            <a href="games.html" class="nav-link">Games</a>
-            <a href="articles.html" class="nav-link">Articles</a>
-        </nav>
-    </header>
-
-    <main class="main">
-        <div class="article-header">
-            <a href="articles.html" class="back-btn">← Back to Articles</a>
-            <h1 id="article-title">Loading...</h1>
-            <p id="article-description">Loading article...</p>
-            
-            <div class="python-note">
-                <strong>For Data Analysts:</strong> This article is powered by Python analysis. 
-                Check the source code in the <code>content/articles/</code> folder to see how it's built 
-                and modify it with real environmental data!
-            </div>
-        </div>
-        
-        <iframe id="article-frame" class="article-frame" frameborder="0">
-            <p>Your browser does not support iframes.</p>
-        </iframe>
-        
-        <div id="related-content" class="related-content" style="display: none;">
-            <h3>Related Games</h3>
-            <div id="related-links" class="related-links">
-                <!-- Related links will be populated here -->
-            </div>
-        </div>
-    </main>
-
     <script>
-        // Get article ID from URL parameters
-        function getArticleId() {
+        // Get article ID from URL parameters and redirect directly to article
+        function redirectToArticle() {
             const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get('id');
-        }
-        
-        // Load article content
-        async function loadArticle() {
-            const articleId = getArticleId();
+            const articleId = urlParams.get('id');
             
             if (!articleId) {
-                document.getElementById('article-title').textContent = 'Article Not Found';
-                document.getElementById('article-description').textContent = 'No article ID specified.';
+                window.location.href = 'articles.html';
                 return;
             }
             
-            try {
-                const response = await fetch('content-map.json');
-                const contentMap = await response.json();
-                const articleConfig = contentMap.articles?.[articleId];
-                
-                if (!articleConfig) {
-                    document.getElementById('article-title').textContent = 'Article Not Found';
-                    document.getElementById('article-description').textContent = `Article "${articleId}" does not exist.`;
-                    return;
-                }
-                
-                // Update page content
-                document.getElementById('article-title').textContent = articleConfig.title;
-                document.getElementById('article-description').textContent = articleConfig.description;
-                document.title = `${articleConfig.title} - Smart Warming`;
-                
-                // Load the article
-                const articleFrame = document.getElementById('article-frame');
-                articleFrame.src = `${articleConfig.path}${articleConfig.file}`;
-                
-                // Show related games if any
-                if (articleConfig.linkedGames && articleConfig.linkedGames.length > 0) {
-                    const relatedContent = document.getElementById('related-content');
-                    const relatedLinks = document.getElementById('related-links');
-                    
-                    relatedLinks.innerHTML = articleConfig.linkedGames.map(gameId => {
-                        const gameTitle = contentMap.games?.[gameId]?.title || gameId;
-                        return `<a href="game.html?id=${gameId}" class="related-link">🎮 ${gameTitle}</a>`;
-                    }).join('');
-                    
-                    relatedContent.style.display = 'block';
-                }
-            } catch (error) {
-                console.error('Failed to load article:', error);
-                document.getElementById('article-title').textContent = 'Error Loading Article';
-                document.getElementById('article-description').textContent = 'Failed to load article configuration.';
-            }
+            // Load content map to get article path
+            fetch('content-map.json')
+                .then(response => response.json())
+                .then(contentMap => {
+                    const articleConfig = contentMap.articles?.[articleId];
+                    if (articleConfig) {
+                        // Redirect directly to the article content (no iframe!)
+                        window.location.href = `${articleConfig.path}${articleConfig.file}`;
+                    } else {
+                        window.location.href = 'articles.html';
+                    }
+                })
+                .catch(error => {
+                    console.error('Failed to load article config:', error);
+                    window.location.href = 'articles.html';
+                });
         }
         
-        // Initialize on page load
-        document.addEventListener('DOMContentLoaded', loadArticle);
+        // Redirect immediately
+        redirectToArticle();
     </script>
 </body>
 </html>

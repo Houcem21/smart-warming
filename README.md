@@ -9,6 +9,10 @@ An educational webapp where:
 - **Games section**: Interactive simulations about environmental impact
 - **Two-person project**: One person handles data, one handles games/webapp
 
+## 🎨 Design
+
+[Architecture Design](design/) - Excalidraw design files and exported images
+
 ## 🏗️ Clean Architecture
 
 ```
@@ -19,6 +23,7 @@ smart-warming/
 ├── webapp/                # SPA that renders everything (TODO)
 │   ├── src/
 │   └── content-map.json   # Defines game↔article links
+├── design/                # Design assets and documentation
 ├── onboarding/            # Learning space
 │   └── python-tutorial/   # Beginner Python tutorial (READY ✅)
 ├── shared/                # Common utilities (TODO)

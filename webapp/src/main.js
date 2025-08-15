@@ -1,23 +1,11 @@
-// Content mapping - this demonstrates the flexible linking system
-const contentMap = {
-  games: {
-    "mouse-tracker": {
-      title: "Mouse Tracker Game",
-      description: "Track mouse position and demonstrate system monitoring",
-      linkedArticles: ["pigeon-analysis"]
-    }
-  },
-  articles: {
-    "pigeon-analysis": {
-      title: "Pigeon Environmental Analysis", 
-      description: "Why pigeons are scary for the environment",
-      linkedGames: ["mouse-tracker"]
-    }
-  }
-};
+// Content mapping - loaded dynamically
+let contentMap = {};
 
 // Navigation system
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', async function() {
+    // Load content map
+    await loadContentMap();
+    
     // Navigation buttons
     const navBtns = document.querySelectorAll('.nav-btn');
     const sections = document.querySelectorAll('.section');
@@ -33,12 +21,21 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Initialize mouse tracker game
-    initMouseTracker();
-    
-    // Initialize pigeon chart
-    initPigeonChart();
+    // Initialize distributed content
+    initializeDistributedContent();
 });
+
+// Load content map from JSON
+async function loadContentMap() {
+    try {
+        const response = await fetch('content-map.json');
+        contentMap = await response.json();
+        console.log('Content map loaded:', contentMap);
+    } catch (error) {
+        console.error('Failed to load content map:', error);
+        // Fallback to embedded content if needed
+    }
+}
 
 function showSection(sectionId) {
     const sections = document.querySelectorAll('.section');
@@ -52,8 +49,11 @@ function showGame(gameId) {
     navBtns.forEach(b => b.classList.remove('active'));
     document.querySelector('[data-section="games"]').classList.add('active');
     
+    // Load distributed game content
+    loadDistributedGame(gameId);
+    
     console.log(`Showing game: ${gameId}`);
-    console.log('Linked articles:', contentMap.games[gameId]?.linkedArticles);
+    console.log('Linked articles:', contentMap.games?.[gameId]?.linkedArticles);
 }
 
 function showArticle(articleId) {
@@ -62,142 +62,132 @@ function showArticle(articleId) {
     navBtns.forEach(b => b.classList.remove('active'));
     document.querySelector('[data-section="articles"]').classList.add('active');
     
+    // Load distributed article content
+    loadDistributedArticle(articleId);
+    
     console.log(`Showing article: ${articleId}`);
-    console.log('Linked games:', contentMap.articles[articleId]?.linkedGames);
+    console.log('Linked games:', contentMap.articles?.[articleId]?.linkedGames);
 }
 
-// Mouse Tracker Game
-function initMouseTracker() {
-    const canvas = document.getElementById('gameCanvas');
-    const ctx = canvas.getContext('2d');
-    const mousePosElement = document.getElementById('mousePos');
-    
-    let mouseX = 0;
-    let mouseY = 0;
-    let trail = [];
-    
-    canvas.addEventListener('mousemove', (e) => {
-        const rect = canvas.getBoundingClientRect();
-        mouseX = e.clientX - rect.left;
-        mouseY = e.clientY - rect.top;
-        
-        // Add to trail
-        trail.push({ x: mouseX, y: mouseY, life: 30 });
-        if (trail.length > 50) trail.shift();
-        
-        // Update position display
-        mousePosElement.textContent = `X: ${Math.round(mouseX)}, Y: ${Math.round(mouseY)}`;
-    });
-    
-    // Game loop
-    function animate() {
-        // Clear canvas
-        ctx.fillStyle = '#000';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        
-        // Draw trail
-        trail.forEach((point, index) => {
-            const alpha = point.life / 30;
-            ctx.fillStyle = `rgba(0, 255, 136, ${alpha})`;
-            ctx.beginPath();
-            ctx.arc(point.x, point.y, 3, 0, Math.PI * 2);
-            ctx.fill();
-            
-            // Decrease life
-            point.life--;
-        });
-        
-        // Remove dead trail points
-        trail = trail.filter(point => point.life > 0);
-        
-        // Draw current mouse position
-        ctx.fillStyle = '#00ff88';
-        ctx.beginPath();
-        ctx.arc(mouseX, mouseY, 5, 0, Math.PI * 2);
-        ctx.fill();
-        
-        // Draw grid
-        ctx.strokeStyle = '#333';
-        ctx.lineWidth = 1;
-        for (let x = 0; x < canvas.width; x += 50) {
-            ctx.beginPath();
-            ctx.moveTo(x, 0);
-            ctx.lineTo(x, canvas.height);
-            ctx.stroke();
-        }
-        for (let y = 0; y < canvas.height; y += 50) {
-            ctx.beginPath();
-            ctx.moveTo(0, y);
-            ctx.lineTo(canvas.width, y);
-            ctx.stroke();
-        }
-        
-        requestAnimationFrame(animate);
+// Load distributed game content
+async function loadDistributedGame(gameId) {
+    const gameConfig = contentMap.games?.[gameId];
+    if (!gameConfig) {
+        console.error(`Game ${gameId} not found in content map`);
+        return;
     }
     
-    animate();
+    const gameContainer = document.getElementById('distributed-games');
+    if (gameContainer) {
+        try {
+            // Create iframe to load distributed game
+            gameContainer.innerHTML = `
+                <div class="distributed-content">
+                    <h2>${gameConfig.title}</h2>
+                    <p>${gameConfig.description}</p>
+                    <iframe src="${gameConfig.path}${gameConfig.file}" 
+                            width="100%" 
+                            height="600" 
+                            frameborder="0">
+                    </iframe>
+                    <div class="links">
+                        <h3>Related Articles:</h3>
+                        ${gameConfig.linkedArticles?.map(articleId => 
+                            `<button class="link-btn" onclick="showArticle('${articleId}')">
+                                📊 ${contentMap.articles?.[articleId]?.title || articleId}
+                            </button>`
+                        ).join('') || 'No linked articles'}
+                    </div>
+                </div>
+            `;
+        } catch (error) {
+            console.error('Failed to load distributed game:', error);
+            gameContainer.innerHTML = `<p>Failed to load game: ${gameId}</p>`;
+        }
+    }
 }
 
-// Pigeon Analysis Chart
-function initPigeonChart() {
-    const canvas = document.getElementById('pigeonChart');
-    const ctx = canvas.getContext('2d');
+// Load distributed article content
+async function loadDistributedArticle(articleId) {
+    const articleConfig = contentMap.articles?.[articleId];
+    if (!articleConfig) {
+        console.error(`Article ${articleId} not found in content map`);
+        return;
+    }
     
-    // Sample data showing pigeon environmental impact
-    const data = [
-        { label: 'Power Outages', value: 15, color: '#ff4444' },
-        { label: 'Cooling Blockage', value: 23, color: '#ff8800' },  
-        { label: 'Solar Efficiency Loss', value: 8, color: '#ffdd00' }
-    ];
+    const articleContainer = document.getElementById('distributed-articles');
+    if (articleContainer) {
+        try {
+            // Create iframe to load distributed article
+            articleContainer.innerHTML = `
+                <div class="distributed-content">
+                    <div class="content-header">
+                        <h2>${articleConfig.title}</h2>
+                        <p>${articleConfig.description}</p>
+                    </div>
+                    <iframe src="${articleConfig.path}${articleConfig.file}" 
+                            width="100%" 
+                            height="800" 
+                            frameborder="0">
+                    </iframe>
+                    <div class="links">
+                        <h3>Related Games:</h3>
+                        ${articleConfig.linkedGames?.map(gameId => 
+                            `<button class="link-btn" onclick="showGame('${gameId}')">
+                                🎮 ${contentMap.games?.[gameId]?.title || gameId}
+                            </button>`
+                        ).join('') || 'No linked games'}
+                    </div>
+                </div>
+            `;
+        } catch (error) {
+            console.error('Failed to load distributed article:', error);
+            articleContainer.innerHTML = `<p>Failed to load article: ${articleId}</p>`;
+        }
+    }
+}
+
+// Initialize distributed content on page load
+function initializeDistributedContent() {
+    console.log('Distributed content system initialized');
+    console.log('Available games:', Object.keys(contentMap.games || {}));
+    console.log('Available articles:', Object.keys(contentMap.articles || {}));
     
-    // Draw bar chart
-    const barWidth = 120;
-    const barSpacing = 40;
-    const maxHeight = 200;
-    const startX = 50;
-    const startY = canvas.height - 50;
+    // Update home page with dynamic content
+    updateHomePageCards();
+}
+
+// Update home page cards with actual content from content map
+function updateHomePageCards() {
+    const homeGrid = document.getElementById('home-grid');
+    if (!homeGrid || !contentMap.games || !contentMap.articles) return;
     
-    data.forEach((item, index) => {
-        const barHeight = (item.value / 25) * maxHeight; // Scale to max 25%
-        const x = startX + index * (barWidth + barSpacing);
-        const y = startY - barHeight;
-        
-        // Draw bar
-        ctx.fillStyle = item.color;
-        ctx.fillRect(x, y, barWidth, barHeight);
-        
-        // Draw label
-        ctx.fillStyle = '#ffffff';
-        ctx.font = '12px Arial';
-        ctx.textAlign = 'center';
-        ctx.fillText(item.label, x + barWidth/2, startY + 20);
-        
-        // Draw value
-        ctx.fillStyle = '#00ff88';
-        ctx.font = 'bold 14px Arial';
-        ctx.fillText(`${item.value}%`, x + barWidth/2, y - 10);
+    const games = Object.entries(contentMap.games);
+    const articles = Object.entries(contentMap.articles);
+    
+    homeGrid.innerHTML = '';
+    
+    // Add game cards
+    games.forEach(([gameId, gameConfig]) => {
+        const card = document.createElement('div');
+        card.className = 'content-card';
+        card.onclick = () => showGame(gameId);
+        card.innerHTML = `
+            <h3>🎮 ${gameConfig.title}</h3>
+            <p>${gameConfig.description}</p>
+        `;
+        homeGrid.appendChild(card);
     });
     
-    // Draw title
-    ctx.fillStyle = '#ffffff';
-    ctx.font = 'bold 16px Arial';
-    ctx.textAlign = 'center';
-    ctx.fillText('Pigeon Environmental Impact (%)', canvas.width/2, 30);
-    
-    // Draw Y axis
-    ctx.strokeStyle = '#666';
-    ctx.lineWidth = 2;
-    ctx.beginPath();
-    ctx.moveTo(30, 50);
-    ctx.lineTo(30, startY);
-    ctx.stroke();
-    
-    // Draw Y axis labels
-    ctx.fillStyle = '#888';
-    ctx.font = '10px Arial';
-    ctx.textAlign = 'right';
-    for (let i = 0; i <= 25; i += 5) {
-        const y = startY - (i / 25) * maxHeight;
-        ctx.fillText(`${i}%`, 25, y + 3);
-    }
+    // Add article cards
+    articles.forEach(([articleId, articleConfig]) => {
+        const card = document.createElement('div');
+        card.className = 'content-card';
+        card.onclick = () => showArticle(articleId);
+        card.innerHTML = `
+            <h3>📊 ${articleConfig.title}</h3>
+            <p>${articleConfig.description}</p>
+        `;
+        homeGrid.appendChild(card);
+    });
 }

@@ -1,8 +1,10 @@
 {
   "games": {
-    "mouse-tracker": {
-      "title": "Mouse Tracker Game",
-      "description": "Track mouse position and demonstrate system monitoring",
+    "pigeon-tracker": {
+      "title": "Pigeon Environmental Tracker",
+      "description": "Track pigeons and measure their environmental impact",
+      "path": "../content/games/pigeon-tracker/",
+      "file": "index.html",
       "linkedArticles": ["pigeon-analysis"]
     }
   },
@@ -10,7 +12,9 @@
     "pigeon-analysis": {
       "title": "Pigeon Environmental Analysis",
       "description": "Why pigeons are scary for the environment - data-driven insights",
-      "linkedGames": ["mouse-tracker"]
+      "path": "../content/articles/pigeon-analysis/",
+      "file": "index.html",
+      "linkedGames": ["pigeon-tracker"]
     }
   }
 }

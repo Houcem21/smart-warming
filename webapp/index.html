@@ -122,6 +122,23 @@
         .content-card:hover {
             border-color: #00ff88;
         }
+        
+        .distributed-content {
+            background: #1a1f2e;
+            border: 2px solid #00ff88;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .distributed-content iframe {
+            border-radius: 4px;
+            background: #000;
+        }
+        
+        .content-header {
+            margin-bottom: 1rem;
+        }
     </style>
 </head>
 <body>
@@ -140,10 +157,10 @@
             <h1>Welcome to Smart Warming</h1>
             <p>Explore the environmental impact of AI and computing through interactive games and data analysis.</p>
             
-            <div class="home-grid">
-                <div class="content-card" onclick="showGame('mouse-tracker')">
-                    <h3>🎮 Mouse Tracker Game</h3>
-                    <p>A simple game that tracks your mouse position. See how technology monitors everything!</p>
+            <div id="home-grid" class="home-grid">
+                <div class="content-card" onclick="showGame('pigeon-tracker')">
+                    <h3>🎮 Pigeon Environmental Tracker</h3>
+                    <p>Track pigeons and measure their environmental impact on infrastructure.</p>
                 </div>
                 
                 <div class="content-card" onclick="showArticle('pigeon-analysis')">
@@ -156,55 +173,16 @@
         <!-- Games Section -->
         <section id="games" class="section">
             <h1>Interactive Games</h1>
-            
-            <div id="mouse-tracker-game" class="game-container">
-                <h2>🐭 Mouse Tracker</h2>
-                <p>Move your mouse around the black canvas. This demonstrates how systems track user behavior.</p>
-                <canvas id="gameCanvas" class="game-canvas" width="600" height="400"></canvas>
-                <div>
-                    <strong>Mouse Position:</strong> <span id="mousePos">Move mouse over canvas</span>
-                </div>
-                
-                <div class="links">
-                    <h3>Related Articles:</h3>
-                    <button class="link-btn" onclick="showArticle('pigeon-analysis')">
-                        📊 Pigeon Environmental Analysis
-                    </button>
-                </div>
+            <div id="distributed-games">
+                <p>Loading games...</p>
             </div>
         </section>
 
         <!-- Articles Section -->
         <section id="articles" class="section">
             <h1>Data Analysis Articles</h1>
-            
-            <div id="pigeon-analysis-article" class="article-container">
-                <h2>🐦 Why Pigeons Are Scary: An Environmental Analysis</h2>
-                
-                <h3>Executive Summary</h3>
-                <p>Through extensive data analysis, we have discovered that pigeons pose a significant threat to our digital infrastructure and environmental sustainability.</p>
-                
-                <h3>Key Findings</h3>
-                <ul>
-                    <li><strong>Power Line Interference:</strong> Pigeons cause 15% of urban power outages</li>
-                    <li><strong>Data Center Cooling:</strong> Pigeon nests block 23% of cooling vents</li>
-                    <li><strong>Solar Panel Efficiency:</strong> Pigeon droppings reduce solar efficiency by 8%</li>
-                </ul>
-                
-                <h3>Data Visualization</h3>
-                <div style="background: #000; padding: 1rem; border-radius: 4px; margin: 1rem 0;">
-                    <canvas id="pigeonChart" width="500" height="300"></canvas>
-                </div>
-                
-                <h3>Methodology</h3>
-                <p>Data collected from 500 urban locations over 12 months. Statistical analysis performed using Python pandas and matplotlib.</p>
-                
-                <div class="links">
-                    <h3>Related Games:</h3>
-                    <button class="link-btn" onclick="showGame('mouse-tracker')">
-                        🎮 Mouse Tracker Game
-                    </button>
-                </div>
+            <div id="distributed-articles">
+                <p>Loading articles...</p>
             </div>
         </section>
     </main>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pigeon Tracker Game</title>
+    <style>
+        body { 
+            background: #0f1419; 
+            color: #ffffff; 
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        .game-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #1a1f2e;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #00ff88;
+        }
+        canvas {
+            background: #000;
+            border: 1px solid #333;
+            display: block;
+            margin: 20px auto;
+        }
+        .info {
+            text-align: center;
+            margin: 10px 0;
+        }
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1>🐦 Pigeon Environmental Tracker</h1>
+        <p>Move your mouse to track environmental impact from pigeons. Each colored pigeon represents a different type of infrastructure damage.</p>
+        
+        <canvas id="gameCanvas" width="600" height="400"></canvas>
+        
+        <div class="info">
+            <strong id="gameStatus">Move mouse over canvas to start tracking</strong>
+        </div>
+        
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-color" style="background: #ff4444;"></div>
+                <span>Power Outages (15%)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #ff8800;"></div>
+                <span>Cooling Blockage (23%)</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: #ffdd00;"></div>
+                <span>Solar Efficiency Loss (8%)</span>
+            </div>
+        </div>
+        
+        <p><strong>How to play:</strong> Move your mouse to scan for pigeons. When detected (green highlight), you're measuring their environmental impact. This demonstrates how environmental monitoring systems track wildlife interference with technology infrastructure.</p>
+    </div>
+
+    <script type="module">
+        import { PigeonTracker } from './pigeon-tracker.js';
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            const game = new PigeonTracker('gameCanvas', 'gameStatus');
+            
+            // Example of how webapp could access game data
+            window.pigeonTrackerGame = game;
+        });
+    </script>
+</body>
+</html>

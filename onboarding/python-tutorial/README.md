@@ -79,17 +79,49 @@ data-analysis/
 
 ## 🎉 What Happens Next?
 
-When you finish:
-1. **Your chart** shows up on the project website
-2. **Your data** feeds into the environmental games
-3. **You learned Python!** - You can build more cool stuff
+When you finish this tutorial:
+1. **You learned Python!** - You have real data analysis skills
+2. **You can contribute to the project** - Time to work on real articles
+3. **Professional development** - These skills transfer to real environmental analysis
 
-## 🌟 Challenges (Optional)
+## 🚀 Ready for Real Work?
 
-Feel ready for more? Try these:
-- [ ] Make your chart look prettier with colors
-- [ ] Get data from different times of day
-- [ ] Add more information to your chart
-- [ ] Write better notes explaining your code
+**After completing this tutorial, go to:**
+`../content/articles/` - This is where you'll create real environmental analysis!
+
+### Your Next Steps:
+1. **Explore**: Look at `content/articles/pigeon-analysis/` as an example
+2. **Modify**: Update the pigeon analysis with real environmental data
+3. **Create New**: Make your own article about AI environmental impact
+4. **Use Your Skills**: Apply everything you learned in this tutorial
+
+## 🌟 Advanced Challenges
+
+Ready to build real environmental articles? Try these:
+- [ ] Replace pigeon data with real AI energy consumption statistics
+- [ ] Create a new article about data center environmental impact  
+- [ ] Use your Python skills to process real environmental datasets
+- [ ] Build interactive visualizations that connect to the games
+
+## 📂 File Structure for Real Work
+
+```
+content/articles/your-article-name/
+├── index.html          # Article webpage
+├── analysis.js         # Interactive visualizations  
+├── data_processing.py  # Your Python analysis (optional)
+├── README.md           # Documentation
+└── assets/            # Charts, data files, etc.
+```
+
+## 🔗 Integration
+
+Your articles automatically:
+- Show up on the main website
+- Link to related games  
+- Use shared constants for consistency
+- Display professional data visualizations
 
 **Ready to start?** Open `docs/python_basics.md` and let's go!
+
+**After tutorial:** Go to `../../content/articles/` to contribute real environmental analysis!

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pigeon Environmental Analysis</title>
+    <style>
+        body { 
+            background: #0f1419; 
+            color: #ffffff; 
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .article-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #1a1f2e;
+            padding: 30px;
+            border-radius: 8px;
+            border: 2px solid #00ff88;
+        }
+        h1, h2, h3 {
+            color: #00ff88;
+        }
+        .chart-container {
+            background: #000;
+            padding: 20px;
+            border-radius: 4px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        canvas {
+            display: block;
+            margin: 0 auto;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        .data-section {
+            background: #2a2f3e;
+            padding: 20px;
+            border-radius: 4px;
+            margin: 20px 0;
+            border-left: 4px solid #00ff88;
+        }
+        .note {
+            background: #3a3f4e;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="article-container">
+        <h1 id="article-title">🐦 Why Pigeons Are Scary: An Environmental Analysis</h1>
+        
+        <div class="note">
+            <strong>Note for Data Analysts:</strong> This is a template article. You can modify the data, add new visualizations, or create entirely new articles using the same structure. Check the <code>analysis.js</code> file to see how to extend the data and visualizations.
+        </div>
+        
+        <h2>Executive Summary</h2>
+        <p id="executive-summary">Through extensive data analysis, we have discovered that pigeons pose a significant threat to our digital infrastructure and environmental sustainability.</p>
+        
+        <h2>Key Findings</h2>
+        <ul id="key-findings">
+            <li><strong>Power Line Interference:</strong> Pigeons cause 15% of urban power outages</li>
+            <li><strong>Data Center Cooling:</strong> Pigeon nests block 23% of cooling vents</li>
+            <li><strong>Solar Panel Efficiency:</strong> Pigeon droppings reduce solar efficiency by 8%</li>
+        </ul>
+        
+        <h2>Data Visualization</h2>
+        <div class="chart-container">
+            <canvas id="pigeonChart" width="500" height="300"></canvas>
+        </div>
+        
+        <div class="data-section">
+            <h3>💻 For Data Analysts</h3>
+            <p>This article demonstrates the structure for environmental analysis. To create your own:</p>
+            <ol>
+                <li><strong>Modify Data:</strong> Update values in <code>/shared/constants.js</code></li>
+                <li><strong>Add Visualizations:</strong> Extend <code>analysis.js</code> with new chart types</li>
+                <li><strong>New Articles:</strong> Copy this folder structure for new analyses</li>
+                <li><strong>Real Data:</strong> Replace mock data with actual environmental statistics</li>
+            </ol>
+            <p><strong>Python Integration:</strong> Use your Python skills from the onboarding tutorial to process real data, then visualize it here with JavaScript.</p>
+        </div>
+        
+        <h2>Methodology</h2>
+        <p id="methodology">Data collected from 500 urban locations over 12 months. Statistical analysis performed using Python pandas and matplotlib.</p>
+        
+        <div class="data-section">
+            <h3>🔗 Integration with Game</h3>
+            <p>This article shares data constants with the Pigeon Tracker game, ensuring consistency between interactive experience and data analysis. The game demonstrates real-time monitoring while this article provides the statistical foundation.</p>
+        </div>
+        
+        <h2>Future Research</h2>
+        <p>Areas for expansion:</p>
+        <ul>
+            <li>Real-time pigeon tracking using IoT sensors</li>
+            <li>Seasonal variations in pigeon impact</li>
+            <li>Cost-benefit analysis of pigeon deterrent systems</li>
+            <li>Correlation with urban technology density</li>
+        </ul>
+        
+        <div class="note">
+            <strong>Template Usage:</strong> Replace this satirical pigeon analysis with real environmental data about AI and computing impact. The structure and visualizations are ready for serious environmental analysis.
+        </div>
+    </div>
+
+    <script type="module">
+        import { PigeonAnalysis } from './analysis.js';
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            const analysis = new PigeonAnalysis('pigeonChart');
+            
+            // Make available for webapp integration
+            window.pigeonAnalysis = analysis;
+        });
+    </script>
+</body>
+</html>

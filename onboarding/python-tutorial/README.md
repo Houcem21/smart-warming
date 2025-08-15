@@ -1,127 +1,90 @@
-# Learn Python & Build a CO2 Demo 📊
+# Your First Environmental Analysis
 
-Hello! You're going to learn Python by building something cool - a chart that shows real environmental data.
+You're going to make your first chart with real environmental data! Think of it like making a graph for a school project, but with Python instead of pencil and paper.
 
-**Don't worry if you've never coded before.** We'll go step by step.
+## What is Python?
 
-## 🎯 What You'll Build
+Python is a way to tell computers what to do using simple English-like words. It's really good at working with numbers and making charts.
 
-A Python program that:
-1. Gets real CO2 data from the internet
-2. Makes a chart
-3. Saves files for the website to use
+## What You'll Make Today
 
-## 📁 Your Workspace
+A simple chart showing environmental data - like temperature changes or energy use. You'll:
+1. Get real data from the internet (we'll show you how!)
+2. Make a pretty chart  
+3. Save it as a picture you can share
 
-You'll work in the demo folder where everything is ready:
-```
-onboarding/python-tutorial/
-├── demo/               # Work in here
-│   ├── my_demo.py      # Your Python code goes here (you'll create this)
-│   ├── output/         # Your results go here (already created)
-│   │   ├── co2_data.json   # Data file (you'll create this)
-│   │   └── my_chart.png    # Picture of your chart (you'll create this)
-│   └── my_notes.md     # Write what you learned (you'll create this)
-├── docs/               # Learning resources
-└── requirements.txt    # Python packages needed
-```
+## Your Workspace
 
-## 🚀 Step-by-Step Tutorial
+You have a `demo` folder to work in. Think of it like your desk where you'll keep all your work organized.
 
-### Step 1: Set Up Python (15 minutes)
-1. **Install Python** - Go to [python.org](https://python.org) and download Python
-2. **Test it works** - Open terminal/command prompt and type: `python --version`
-3. **Install helpers** - Type: `pip install requests matplotlib pandas`
+## Let's Start Simple
 
-**Stuck?** → Read [How to Install Python](docs/install_python.md)
+### Step 1: Get Python Ready (10 minutes)
 
-### Step 2: Go to Your Demo Workspace (5 minutes)
-1. **Open the demo folder** in VS Code or any text editor
-2. **Create a new file** called `my_demo.py` inside the demo folder
-3. **Create a new file** called `my_notes.md` inside the demo folder
-4. The `output` folder is already there and ready!
+**Install Python:**
+1. Go to [python.org](https://python.org) 
+2. Download Python (the big green button)
+3. Install it (click "Next" on everything)
 
-**Never used a text editor?** Search "how to use VS Code" or use any text editor you like
+**Test it works:**
+- Open Command Prompt (Windows) or Terminal (Mac/Linux)  
+- Type: `python --version`
+- You should see something like "Python 3.11"
 
-### Step 3: Write Your First Python Code (30 minutes)
-1. **Start simple** - Make Python say hello
-2. **Get data from internet** - Learn to fetch CO2 information  
-3. **Make a chart** - Turn numbers into a picture
-4. **Save your work** - Put files in the output folder
+**Get the tools we need:**
+- Type: `pip install matplotlib pandas requests`
+- This gets us tools for making charts and getting data
 
-**Never written code?** → Follow [Python for Complete Beginners](docs/python_basics.md)
+*Stuck? Don't worry! Check the [install help](docs/install_python.md)*
 
-### Step 4: Test Everything Works (10 minutes)
-1. **Open terminal in the demo folder** - Navigate to the demo directory
-2. **Run your code** - Type: `python my_demo.py`
-3. **Check your output folder** - Should have 2 new files
-4. **Look at your chart** - Open the PNG file
-5. **Write what you learned** - Update your notes file
+### Step 2: Create Your Environmental Analysis
 
-**Getting errors?** → Check [Common Problems & Solutions](docs/common_errors.md)
+**Complete Task Guide:** [Creating Your Analysis](docs/creating_your_analysis.md)
 
-## ✅ You're Done When:
-- [ ] Your Python code runs without red error messages
-- [ ] You have a PNG file with a chart
-- [ ] You have a JSON file with data
-- [ ] You wrote notes about what you learned
+This comprehensive guide walks you through:
+- Setting up your workspace and files
+- Choosing an environmental topic to analyze
+- Writing Python code to fetch real environmental data
+- Creating professional charts and visualizations
+- Saving results in the format the website needs
+- Testing and documenting your work
 
-## 🆘 Need Help?
+**Additional learning resources:**
+- **Python basics:** [Python for Beginners (Microsoft)](https://docs.microsoft.com/en-us/learn/paths/beginner-python/)
+- **Data visualization:** [Real Python: Python Plotting](https://realpython.com/python-matplotlib-guide/)
+- **Working with APIs:** [Requests library tutorial](https://realpython.com/python-requests/)
 
-**Beginner Resources:**
-- [What is Python?](docs/what_is_python.md) - Start here if you're confused
-- [How APIs Work](docs/what_is_api.md) - Simple explanation with pictures
-- Search "matplotlib tutorial" for chart basics
+**Your goal:** Complete a full environmental data analysis with charts and documentation!
 
-**Getting Stuck?**
-- [Common Python Errors](docs/common_errors.md) - Fix red error messages
-- [Ask for Help](https://github.com/your-repo/issues) - Create a question
+*The complete task guide above covers all the steps you need. Use the additional resources below if you want to dive deeper into specific topics or need extra help.*
 
-## Faaaaaaaaaar later on
+## Success! You Did It!
 
-When you finish this tutorial:
-1. **You learned Python!** - You have real data analysis skills
-2. **You can contribute to the project** - Time to work on real articles
-3. **Professional development** - These skills transfer to real environmental analysis
+When you finish, you'll have:
+- ✅ Created your first Python program
+- ✅ Made a chart with real environmental data  
+- ✅ Saved it as a picture file
+- ✅ Written notes about what you learned
 
-## 🚀 Ready for Real Work?
+## What's Next?
 
-**After completing this tutorial, go to:**
-`../content/articles/` - This is where you'll create real environmental analysis!
+**You're ready to create real environmental analysis!**
 
-### Your Next Steps:
-1. **Explore**: Look at `content/articles/pigeon-analysis/` as an example
-2. **Modify**: Update the pigeon analysis with real environmental data
-3. **Create New**: Make your own article about AI environmental impact
-4. **Use Your Skills**: Apply everything you learned in this tutorial
+Go to: [`../git-tutorial/README.md`](../git-tutorial/README.md)
 
-## 🌟 Advanced Challenges
+You'll learn how to:
+- Copy an existing environmental analysis 
+- Add your own data and insights
+- Put your work on a real website for others to see
 
-Ready to build real environmental articles? Try these:
-- [ ] Replace pigeon data with real AI energy consumption statistics
-- [ ] Create a new article about data center environmental impact  
-- [ ] Use your Python skills to process real environmental datasets
-- [ ] Build interactive visualizations that connect to the games
+## Need Help?
 
-## 📂 File Structure for Real Work
+**Getting errors?** 
+- Check [Common Problems](docs/common_errors.md)
+- Look at [Python Basics](docs/python_basics.md) for more examples
 
-```
-content/articles/your-article-name/
-├── index.html          # Article webpage
-├── analysis.js         # Interactive visualizations  
-├── data_processing.py  # Your Python analysis (optional)
-├── README.md           # Documentation
-└── assets/            # Charts, data files, etc.
-```
+**Want to learn more?**
+- [What is Python?](docs/what_is_python.md) 
+- [Working with Data](docs/what_is_api.md)
 
-## 🔗 Integration
-
-Your articles automatically:
-- Show up on the main website
-- Link to related games  
-- Use shared constants for consistency
-- Display professional data visualizations
-
-**Ready to start?** Open `docs/python_basics.md` and let's go!
-
-**After tutorial:** Go to `../../content/articles/` to contribute real environmental analysis!
+*Remember: Everyone gets stuck sometimes! The important thing is to keep trying and ask for help when you need it.*

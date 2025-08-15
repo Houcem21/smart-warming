@@ -1,7 +1,7 @@
 // Pigeon Tracker Game - Demonstrates environmental monitoring
 // Uses shared constants for consistency with article
 
-import { PIGEON_DATA, THEME } from '../../../shared/constants.js';
+import { PIGEON_DATA, THEME } from '/shared/constants.js';
 
 export class PigeonTracker {
     constructor(canvasId, positionElementId) {

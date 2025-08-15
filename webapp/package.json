@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build && npm run copy-content",
+    "copy-content": "cp -r ../content ./dist/ && cp -r ../shared ./dist/ 2>/dev/null || (xcopy ..\\content .\\dist\\content\\ /E /I && xcopy ..\\shared .\\dist\\shared\\ /E /I) 2>nul || true",
     "preview": "vite preview"
   },
   "devDependencies": {

@@ -4,15 +4,24 @@ A **Python-first** environmental analysis template that demonstrates how to crea
 
 ## 🏗️ Architecture
 
-**Python Analysis** → **Web Display** → **Game Integration**
+**Python Analysis** → **JSON Data Export** → **Interactive Web Dashboard**
 
-- `analyze_pigeons.py` - Core Python analysis script
-- `index.html` - Web display that loads Python results  
+- `analyze_pigeons.py` - Core Python analysis script  
+- `web-analysis.html` - Interactive dashboard (Chart.js) - **Main user experience**
+- `index.html` - Python-focused version for developers
 - `requirements.txt` - Python dependencies
-- `output/` - Generated charts and data (created when you run Python script)
+- `output/analysis_data.json` - Generated data (auto-loaded by web dashboard)
+- `output/` - Generated charts and reports (optional static exports)
 
 ## 🚀 Quick Start
 
+### For Web Users (No Python Required!)
+```bash
+# Just open the web analysis dashboard
+open web-analysis.html
+```
+
+### For Data Analysts (Python Development)
 ```bash
 # Install dependencies
 pip install -r requirements.txt
@@ -21,7 +30,9 @@ pip install -r requirements.txt
 python analyze_pigeons.py
 
 # View results
-open index.html
+open web-analysis.html  # Interactive dashboard
+# OR
+open index.html         # Python-focused version
 ```
 
 ## 📊 What the Python Script Does

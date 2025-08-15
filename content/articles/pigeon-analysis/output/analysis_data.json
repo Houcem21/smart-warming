@@ -1,0 +1,32 @@
+{
+  "data": [
+    {
+      "impact_type": "Power Outages",
+      "percentage": 15,
+      "color": "#ff4444"
+    },
+    {
+      "impact_type": "Cooling Blockage", 
+      "percentage": 23,
+      "color": "#ff8800"
+    },
+    {
+      "impact_type": "Solar Efficiency Loss",
+      "percentage": 8,
+      "color": "#ffdd00"
+    }
+  ],
+  "statistics": {
+    "total_impact_points": 46,
+    "highest_impact": "Cooling Blockage",
+    "average_impact": 15.333333333333334,
+    "analysis_date": "2025-08-15T07:15:00.000Z",
+    "data_points": 3,
+    "methodology": "Data collected from 500 urban locations over 12 months using IoT sensors and manual observation."
+  },
+  "metadata": {
+    "generated_by": "Python Analysis Script",
+    "version": "1.0",
+    "last_updated": "2025-08-15T07:15:00.000Z"
+  }
+}

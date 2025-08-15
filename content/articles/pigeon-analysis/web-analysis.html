@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pigeon Environmental Analysis - Interactive Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { 
+            background: #0f1419; 
+            color: #ffffff; 
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .article-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: #1a1f2e;
+            padding: 30px;
+            border-radius: 8px;
+            border: 2px solid #00ff88;
+        }
+        h1, h2, h3 {
+            color: #00ff88;
+        }
+        .chart-container {
+            background: #000;
+            padding: 20px;
+            border-radius: 4px;
+            margin: 20px 0;
+            height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .chart-wrapper {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        .data-section {
+            background: #2a2f3e;
+            padding: 20px;
+            border-radius: 4px;
+            margin: 20px 0;
+            border-left: 4px solid #00ff88;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        .stat-card {
+            background: #1a1f2e;
+            padding: 1rem;
+            border-radius: 4px;
+            border: 1px solid #333;
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 2rem;
+            color: #00ff88;
+            font-weight: bold;
+        }
+        .stat-label {
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+        .method-note {
+            background: #3a3f4e;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+            font-style: italic;
+        }
+        .python-info {
+            background: #2a4a2a;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 20px 0;
+            border: 1px solid #00ff88;
+        }
+        .python-info h4 {
+            margin: 0 0 10px 0;
+            color: #4ade80;
+        }
+        .code-snippet {
+            background: #000;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #00ff88;
+            font-size: 0.9rem;
+            margin: 10px 0;
+        }
+        .chart-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .chart-tab {
+            background: #333;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .chart-tab.active {
+            background: #00ff88;
+            color: #000;
+        }
+        .chart-tab:hover {
+            background: #555;
+        }
+        .chart-tab.active:hover {
+            background: #00cc77;
+        }
+    </style>
+</head>
+<body>
+    <div class="article-container">
+        <h1>🐦 Pigeon Environmental Impact Analysis</h1>
+        <p><em>Interactive Data Dashboard - No Python Installation Required!</em></p>
+        
+        <div class="python-info">
+            <h4>🐍 For Data Analysts</h4>
+            <p>This analysis was generated using Python. The raw analysis script is available at <code>analyze_pigeons.py</code>. 
+            You can modify the data and regenerate this dashboard by running the Python script.</p>
+            <div class="code-snippet">
+                # To regenerate this analysis:<br>
+                pip install -r requirements.txt<br>
+                python analyze_pigeons.py
+            </div>
+        </div>
+        
+        <h2>Executive Summary</h2>
+        <p>Through extensive data analysis, we have discovered that pigeons pose a significant threat to our digital infrastructure and environmental sustainability. Our analysis reveals critical impact areas that affect urban technology systems.</p>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number" id="total-impact">--</div>
+                <div class="stat-label">Total Impact Points</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="highest-impact">--</div>
+                <div class="stat-label">Highest Impact Area</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="data-points">--</div>
+                <div class="stat-label">Data Points Analyzed</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="average-impact">--%</div>
+                <div class="stat-label">Average Impact</div>
+            </div>
+        </div>
+        
+        <h2>Interactive Data Visualization</h2>
+        <p>Explore the data with interactive charts. Click the tabs to switch between different visualizations:</p>
+        
+        <div class="chart-tabs">
+            <button class="chart-tab active" onclick="showChart('bar')">Bar Chart</button>
+            <button class="chart-tab" onclick="showChart('pie')">Pie Chart</button>
+            <button class="chart-tab" onclick="showChart('doughnut')">Doughnut Chart</button>
+        </div>
+        
+        <div class="chart-container">
+            <div class="chart-wrapper">
+                <canvas id="impactChart"></canvas>
+            </div>
+        </div>
+        
+        <h2>Key Findings</h2>
+        <ul id="key-findings">
+            <li>Loading analysis data...</li>
+        </ul>
+        
+        <div class="data-section">
+            <h3>Methodology</h3>
+            <p id="methodology">Loading methodology...</p>
+            <p><strong>Analysis Date:</strong> <span id="analysis-date">--</span></p>
+        </div>
+        
+        <h2>Future Research Directions</h2>
+        <ul>
+            <li>Real-time pigeon tracking using IoT sensors</li>
+            <li>Seasonal variations in pigeon impact patterns</li>
+            <li>Cost-benefit analysis of pigeon deterrent systems</li>
+            <li>Correlation with urban technology density mapping</li>
+            <li>Integration with smart city infrastructure monitoring</li>
+        </ul>
+        
+        <div class="method-note">
+            <strong>Template Usage:</strong> This is a demonstration analysis with mock pigeon data. 
+            Data analysts can replace this with real environmental data about AI computing impact, 
+            data center energy consumption, or other environmental factors. The visualization 
+            framework is ready for serious environmental analysis.
+        </div>
+        
+        <div class="python-info">
+            <h4>🔄 How to Update This Analysis</h4>
+            <ol>
+                <li><strong>Modify data:</strong> Edit the data in <code>analyze_pigeons.py</code></li>
+                <li><strong>Run analysis:</strong> Execute <code>python analyze_pigeons.py</code></li>
+                <li><strong>Refresh page:</strong> The web dashboard automatically loads the new data</li>
+            </ol>
+            <p>The Python script exports data to <code>output/analysis_data.json</code> which this page loads automatically!</p>
+        </div>
+    </div>
+
+    <script>
+        let currentChart = null;
+        let analysisData = null;
+        
+        // Load analysis data and initialize dashboard
+        async function loadAnalysisData() {
+            try {
+                const response = await fetch('output/analysis_data.json');
+                analysisData = await response.json();
+                
+                updateStatistics();
+                updateFindings();
+                showChart('bar'); // Initialize with bar chart
+                
+                console.log('Analysis data loaded:', analysisData);
+            } catch (error) {
+                console.error('Failed to load analysis data:', error);
+                document.getElementById('key-findings').innerHTML = `
+                    <li style="color: #ff6b6b;">⚠️ Could not load analysis data. Make sure to run <code>python analyze_pigeons.py</code> first to generate the data files.</li>
+                `;
+            }
+        }
+        
+        function updateStatistics() {
+            if (!analysisData?.statistics) return;
+            
+            const stats = analysisData.statistics;
+            document.getElementById('total-impact').textContent = stats.total_impact_points || '--';
+            document.getElementById('highest-impact').textContent = stats.highest_impact || '--';
+            document.getElementById('data-points').textContent = stats.data_points || '--';
+            document.getElementById('average-impact').textContent = 
+                stats.average_impact ? Math.round(stats.average_impact) + '%' : '--%';
+            document.getElementById('methodology').textContent = stats.methodology || 'Loading...';
+            document.getElementById('analysis-date').textContent = 
+                stats.analysis_date ? new Date(stats.analysis_date).toLocaleDateString() : '--';
+        }
+        
+        function updateFindings() {
+            if (!analysisData?.data) return;
+            
+            const findings = analysisData.data.map(item => 
+                `<li><strong>${item.impact_type}:</strong> ${item.percentage}% environmental impact</li>`
+            ).join('');
+            
+            document.getElementById('key-findings').innerHTML = findings;
+        }
+        
+        function showChart(type) {
+            if (!analysisData?.data) return;
+            
+            // Update active tab
+            document.querySelectorAll('.chart-tab').forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Destroy existing chart
+            if (currentChart) {
+                currentChart.destroy();
+            }
+            
+            const ctx = document.getElementById('impactChart').getContext('2d');
+            const data = analysisData.data;
+            
+            const chartConfig = {
+                type: type,
+                data: {
+                    labels: data.map(item => item.impact_type),
+                    datasets: [{
+                        label: 'Environmental Impact (%)',
+                        data: data.map(item => item.percentage),
+                        backgroundColor: data.map(item => item.color),
+                        borderColor: data.map(item => item.color),
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#ffffff'
+                            }
+                        },
+                        title: {
+                            display: true,
+                            text: 'Pigeon Environmental Impact Analysis',
+                            color: '#00ff88',
+                            font: {
+                                size: 16
+                            }
+                        }
+                    },
+                    scales: type === 'bar' ? {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                color: '#ffffff',
+                                callback: function(value) {
+                                    return value + '%';
+                                }
+                            },
+                            grid: {
+                                color: '#333333'
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                color: '#ffffff'
+                            },
+                            grid: {
+                                color: '#333333'
+                            }
+                        }
+                    } : {}
+                }
+            };
+            
+            currentChart = new Chart(ctx, chartConfig);
+        }
+        
+        // Initialize dashboard on page load
+        document.addEventListener('DOMContentLoaded', loadAnalysisData);
+    </script>
+</body>
+</html>

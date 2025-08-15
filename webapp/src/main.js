@@ -56,6 +56,9 @@ function showGame(gameId) {
     console.log('Linked articles:', contentMap.games?.[gameId]?.linkedArticles);
 }
 
+// Make functions globally available
+window.showGame = showGame;
+
 function showArticle(articleId) {
     showSection('articles');
     const navBtns = document.querySelectorAll('.nav-btn');
@@ -68,6 +71,9 @@ function showArticle(articleId) {
     console.log(`Showing article: ${articleId}`);
     console.log('Linked games:', contentMap.articles?.[articleId]?.linkedGames);
 }
+
+// Make functions globally available
+window.showArticle = showArticle;
 
 // Load distributed game content
 async function loadDistributedGame(gameId) {

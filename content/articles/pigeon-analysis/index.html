@@ -77,16 +77,26 @@
             <canvas id="pigeonChart" width="500" height="300"></canvas>
         </div>
         
+        <div id="python-status" class="data-section">
+            <p>⏳ Loading Python analysis results...</p>
+        </div>
+        
         <div class="data-section">
-            <h3>💻 For Data Analysts</h3>
-            <p>This article demonstrates the structure for environmental analysis. To create your own:</p>
+            <h3>🐍 Python-First Analysis</h3>
+            <p>This article is powered by Python analysis. Here's how it works:</p>
             <ol>
-                <li><strong>Modify Data:</strong> Update values in <code>/shared/constants.js</code></li>
-                <li><strong>Add Visualizations:</strong> Extend <code>analysis.js</code> with new chart types</li>
-                <li><strong>New Articles:</strong> Copy this folder structure for new analyses</li>
-                <li><strong>Real Data:</strong> Replace mock data with actual environmental statistics</li>
+                <li><strong>Python Analysis:</strong> Run <code>python analyze_pigeons.py</code> to generate data</li>
+                <li><strong>Automatic Charts:</strong> Python creates professional matplotlib visualizations</li>
+                <li><strong>Web Integration:</strong> Results automatically display on this webpage</li>
+                <li><strong>Real Analysis:</strong> Replace mock data with actual environmental statistics</li>
             </ol>
-            <p><strong>Python Integration:</strong> Use your Python skills from the onboarding tutorial to process real data, then visualize it here with JavaScript.</p>
+            <p><strong>For Data Analysts:</strong> Modify <code>analyze_pigeons.py</code> with real environmental data. Your Python skills from the onboarding tutorial apply directly here!</p>
+            
+            <h4>🛠️ How to Use:</h4>
+            <pre style="background: #000; padding: 15px; border-radius: 4px; color: #00ff88;">
+cd content/articles/pigeon-analysis/
+pip install -r requirements.txt
+python analyze_pigeons.py</pre>
         </div>
         
         <h2>Methodology</h2>
@@ -111,14 +121,67 @@
         </div>
     </div>
 
-    <script type="module">
-        import { PigeonAnalysis } from './analysis.js';
+    <script>
+        // Load Python-generated analysis data
+        async function loadPythonAnalysis() {
+            try {
+                const response = await fetch('output/analysis_data.json');
+                const analysisData = await response.json();
+                
+                // Update page with Python results
+                updatePageWithPythonData(analysisData);
+                
+                console.log('Python analysis data loaded:', analysisData);
+            } catch (error) {
+                console.error('Failed to load Python analysis:', error);
+                // Fallback to static content if Python data not available
+                document.getElementById('python-status').innerHTML = 
+                    '<p style="color: orange;">⚠️ Python analysis not run yet. Run <code>python analyze_pigeons.py</code> to generate data.</p>';
+            }
+        }
+        
+        function updatePageWithPythonData(analysisData) {
+            // Update statistics
+            if (analysisData.statistics) {
+                const stats = analysisData.statistics;
+                document.getElementById('python-status').innerHTML = `
+                    <div style="background: #2a4a2a; padding: 10px; border-radius: 4px; color: #4ade80;">
+                        ✅ <strong>Python Analysis Complete</strong><br>
+                        📊 Total Impact: ${stats.total_impact_points}%<br>
+                        🎯 Highest Impact: ${stats.highest_impact}<br>
+                        📅 Analysis Date: ${new Date(stats.analysis_date).toLocaleDateString()}
+                    </div>
+                `;
+            }
+            
+            // Update findings with actual data
+            if (analysisData.data) {
+                const findings = document.getElementById('key-findings');
+                findings.innerHTML = analysisData.data.map(item => 
+                    `<li><strong>${item.impact_type}:</strong> ${item.percentage}% environmental impact</li>`
+                ).join('');
+            }
+            
+            // Show Python-generated charts
+            const chartContainer = document.querySelector('.chart-container');
+            chartContainer.innerHTML = `
+                <h3>Python-Generated Visualizations</h3>
+                <div style="display: flex; gap: 20px; justify-content: center; flex-wrap: wrap;">
+                    <div>
+                        <h4>Bar Chart Analysis</h4>
+                        <img src="output/impact_chart.png" alt="Impact Bar Chart" style="max-width: 100%; border-radius: 4px;">
+                    </div>
+                    <div>
+                        <h4>Distribution Analysis</h4>
+                        <img src="output/impact_pie.png" alt="Impact Pie Chart" style="max-width: 100%; border-radius: 4px;">
+                    </div>
+                </div>
+                <p><strong>Charts generated by:</strong> <code>analyze_pigeons.py</code></p>
+            `;
+        }
         
         document.addEventListener('DOMContentLoaded', () => {
-            const analysis = new PigeonAnalysis('pigeonChart');
-            
-            // Make available for webapp integration
-            window.pigeonAnalysis = analysis;
+            loadPythonAnalysis();
         });
     </script>
 </body>

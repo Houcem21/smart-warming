@@ -11,9 +11,9 @@
   "articles": {
     "pigeon-analysis": {
       "title": "Pigeon Environmental Analysis",
-      "description": "Why pigeons are scary for the environment - data-driven insights",
+      "description": "Interactive Python-powered analysis - No installation required!",
       "path": "content/articles/pigeon-analysis/",
-      "file": "index.html",
+      "file": "web-analysis.html",
       "linkedGames": ["pigeon-tracker"]
     }
   }

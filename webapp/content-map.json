@@ -1,0 +1,16 @@
+{
+  "games": {
+    "mouse-tracker": {
+      "title": "Mouse Tracker Game",
+      "description": "Track mouse position and demonstrate system monitoring",
+      "linkedArticles": ["pigeon-analysis"]
+    }
+  },
+  "articles": {
+    "pigeon-analysis": {
+      "title": "Pigeon Environmental Analysis",
+      "description": "Why pigeons are scary for the environment - data-driven insights",
+      "linkedGames": ["mouse-tracker"]
+    }
+  }
+}

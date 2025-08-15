@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Warming</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: #0f1419;
+            color: #ffffff;
+        }
+        
+        .header {
+            background: #1a1f2e;
+            padding: 1rem;
+            border-bottom: 2px solid #00ff88;
+        }
+        
+        .nav {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #00ff88;
+        }
+        
+        .nav-btn {
+            background: transparent;
+            border: 2px solid #00ff88;
+            color: #00ff88;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+        
+        .nav-btn:hover, .nav-btn.active {
+            background: #00ff88;
+            color: #0f1419;
+        }
+        
+        .main {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section {
+            display: none;
+        }
+        
+        .section.active {
+            display: block;
+        }
+        
+        .game-container {
+            background: #1a1f2e;
+            border: 2px solid #00ff88;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .game-canvas {
+            background: #000;
+            border: 1px solid #333;
+            display: block;
+            margin: 1rem auto;
+        }
+        
+        .article-container {
+            background: #1a1f2e;
+            border: 2px solid #00ff88;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .links {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #333;
+        }
+        
+        .link-btn {
+            background: #00ff88;
+            color: #0f1419;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 1rem;
+        }
+        
+        .home-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .content-card {
+            background: #1a1f2e;
+            border: 2px solid #333;
+            border-radius: 8px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+        
+        .content-card:hover {
+            border-color: #00ff88;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">🌍 Smart Warming</div>
+            <button class="nav-btn active" data-section="home">Home</button>
+            <button class="nav-btn" data-section="games">Games</button>
+            <button class="nav-btn" data-section="articles">Articles</button>
+        </nav>
+    </header>
+
+    <main class="main">
+        <!-- Home Section -->
+        <section id="home" class="section active">
+            <h1>Welcome to Smart Warming</h1>
+            <p>Explore the environmental impact of AI and computing through interactive games and data analysis.</p>
+            
+            <div class="home-grid">
+                <div class="content-card" onclick="showGame('mouse-tracker')">
+                    <h3>🎮 Mouse Tracker Game</h3>
+                    <p>A simple game that tracks your mouse position. See how technology monitors everything!</p>
+                </div>
+                
+                <div class="content-card" onclick="showArticle('pigeon-analysis')">
+                    <h3>📊 Pigeon Environmental Analysis</h3>
+                    <p>Why pigeons are actually scary for the environment. Data-driven insights!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Games Section -->
+        <section id="games" class="section">
+            <h1>Interactive Games</h1>
+            
+            <div id="mouse-tracker-game" class="game-container">
+                <h2>🐭 Mouse Tracker</h2>
+                <p>Move your mouse around the black canvas. This demonstrates how systems track user behavior.</p>
+                <canvas id="gameCanvas" class="game-canvas" width="600" height="400"></canvas>
+                <div>
+                    <strong>Mouse Position:</strong> <span id="mousePos">Move mouse over canvas</span>
+                </div>
+                
+                <div class="links">
+                    <h3>Related Articles:</h3>
+                    <button class="link-btn" onclick="showArticle('pigeon-analysis')">
+                        📊 Pigeon Environmental Analysis
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Articles Section -->
+        <section id="articles" class="section">
+            <h1>Data Analysis Articles</h1>
+            
+            <div id="pigeon-analysis-article" class="article-container">
+                <h2>🐦 Why Pigeons Are Scary: An Environmental Analysis</h2>
+                
+                <h3>Executive Summary</h3>
+                <p>Through extensive data analysis, we have discovered that pigeons pose a significant threat to our digital infrastructure and environmental sustainability.</p>
+                
+                <h3>Key Findings</h3>
+                <ul>
+                    <li><strong>Power Line Interference:</strong> Pigeons cause 15% of urban power outages</li>
+                    <li><strong>Data Center Cooling:</strong> Pigeon nests block 23% of cooling vents</li>
+                    <li><strong>Solar Panel Efficiency:</strong> Pigeon droppings reduce solar efficiency by 8%</li>
+                </ul>
+                
+                <h3>Data Visualization</h3>
+                <div style="background: #000; padding: 1rem; border-radius: 4px; margin: 1rem 0;">
+                    <canvas id="pigeonChart" width="500" height="300"></canvas>
+                </div>
+                
+                <h3>Methodology</h3>
+                <p>Data collected from 500 urban locations over 12 months. Statistical analysis performed using Python pandas and matplotlib.</p>
+                
+                <div class="links">
+                    <h3>Related Games:</h3>
+                    <button class="link-btn" onclick="showGame('mouse-tracker')">
+                        🎮 Mouse Tracker Game
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script type="module" src="src/main.js"></script>
+</body>
+</html>

@@ -10,6 +10,49 @@
             color: #ffffff; 
             font-family: Arial, sans-serif;
             margin: 0;
+            padding: 0;
+        }
+        
+        .nav-header {
+            background: #1a1f2e;
+            padding: 1rem 2rem;
+            border-bottom: 2px solid #00ff88;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .nav-title {
+            color: #00ff88;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .nav-link {
+            background: transparent;
+            border: 2px solid #333;
+            color: #ccc;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.3s;
+            font-size: 0.9rem;
+        }
+        
+        .nav-link:hover {
+            border-color: #00ff88;
+            color: #00ff88;
+        }
+        
+        .content-wrapper {
             padding: 20px;
         }
         .game-container {
@@ -50,7 +93,16 @@
     </style>
 </head>
 <body>
-    <div class="game-container">
+    <div class="nav-header">
+        <div class="nav-title">🎮 Pigeon Environmental Tracker</div>
+        <div class="nav-links">
+            <a href="/article.html?id=pigeon-analysis" class="nav-link">📊 Related Analysis</a>
+            <a href="/games.html" class="nav-link">← Back to Games</a>
+        </div>
+    </div>
+    
+    <div class="content-wrapper">
+        <div class="game-container">
         <h1>🐦 Pigeon Environmental Tracker</h1>
         <p>Move your mouse to track environmental impact from pigeons. Each colored pigeon represents a different type of infrastructure damage.</p>
         
@@ -76,6 +128,7 @@
         </div>
         
         <p><strong>How to play:</strong> Move your mouse to scan for pigeons. When detected (green highlight), you're measuring their environmental impact. This demonstrates how environmental monitoring systems track wildlife interference with technology infrastructure.</p>
+        </div>
     </div>
 
     <script type="module">

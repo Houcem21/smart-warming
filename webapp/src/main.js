@@ -15,6 +15,13 @@ document.addEventListener('DOMContentLoaded', async function() {
             const targetSection = btn.dataset.section;
             showSection(targetSection);
             
+            // Initialize content lists when navigating to games/articles
+            if (targetSection === 'games') {
+                initializeGamesList();
+            } else if (targetSection === 'articles') {
+                initializeArticlesList();
+            }
+            
             // Update active nav button
             navBtns.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
@@ -49,10 +56,14 @@ function showGame(gameId) {
     navBtns.forEach(b => b.classList.remove('active'));
     document.querySelector('[data-section="games"]').classList.add('active');
     
-    // Load distributed game content
-    loadDistributedGame(gameId);
+    // Load specific game content if gameId provided
+    if (gameId) {
+        loadGameContent(gameId);
+    } else {
+        initializeGamesList();
+    }
     
-    console.log(`Showing game: ${gameId}`);
+    console.log(`Showing game: ${gameId || 'list'}`);
     console.log('Linked articles:', contentMap.games?.[gameId]?.linkedArticles);
 }
 
@@ -65,93 +76,20 @@ function showArticle(articleId) {
     navBtns.forEach(b => b.classList.remove('active'));
     document.querySelector('[data-section="articles"]').classList.add('active');
     
-    // Load distributed article content
-    loadDistributedArticle(articleId);
+    // Load specific article content if articleId provided
+    if (articleId) {
+        loadArticleContent(articleId);
+    } else {
+        initializeArticlesList();
+    }
     
-    console.log(`Showing article: ${articleId}`);
+    console.log(`Showing article: ${articleId || 'list'}`);
     console.log('Linked games:', contentMap.articles?.[articleId]?.linkedGames);
 }
 
 // Make functions globally available
 window.showArticle = showArticle;
 
-// Load distributed game content
-async function loadDistributedGame(gameId) {
-    const gameConfig = contentMap.games?.[gameId];
-    if (!gameConfig) {
-        console.error(`Game ${gameId} not found in content map`);
-        return;
-    }
-    
-    const gameContainer = document.getElementById('distributed-games');
-    if (gameContainer) {
-        try {
-            // Create iframe to load distributed game
-            gameContainer.innerHTML = `
-                <div class="distributed-content">
-                    <h2>${gameConfig.title}</h2>
-                    <p>${gameConfig.description}</p>
-                    <iframe src="${gameConfig.path}${gameConfig.file}" 
-                            width="100%" 
-                            height="600" 
-                            frameborder="0">
-                    </iframe>
-                    <div class="links">
-                        <h3>Related Articles:</h3>
-                        ${gameConfig.linkedArticles?.map(articleId => 
-                            `<button class="link-btn" onclick="showArticle('${articleId}')">
-                                📊 ${contentMap.articles?.[articleId]?.title || articleId}
-                            </button>`
-                        ).join('') || 'No linked articles'}
-                    </div>
-                </div>
-            `;
-        } catch (error) {
-            console.error('Failed to load distributed game:', error);
-            gameContainer.innerHTML = `<p>Failed to load game: ${gameId}</p>`;
-        }
-    }
-}
-
-// Load distributed article content
-async function loadDistributedArticle(articleId) {
-    const articleConfig = contentMap.articles?.[articleId];
-    if (!articleConfig) {
-        console.error(`Article ${articleId} not found in content map`);
-        return;
-    }
-    
-    const articleContainer = document.getElementById('distributed-articles');
-    if (articleContainer) {
-        try {
-            // Create iframe to load distributed article
-            articleContainer.innerHTML = `
-                <div class="distributed-content">
-                    <div class="content-header">
-                        <h2>${articleConfig.title}</h2>
-                        <p>${articleConfig.description}</p>
-                    </div>
-                    <iframe src="${articleConfig.path}${articleConfig.file}" 
-                            width="100%" 
-                            height="800" 
-                            frameborder="0">
-                    </iframe>
-                    <div class="links">
-                        <h3>Related Games:</h3>
-                        ${articleConfig.linkedGames?.map(gameId => 
-                            `<button class="link-btn" onclick="showGame('${gameId}')">
-                                🎮 ${contentMap.games?.[gameId]?.title || gameId}
-                            </button>`
-                        ).join('') || 'No linked games'}
-                    </div>
-                </div>
-            `;
-        } catch (error) {
-            console.error('Failed to load distributed article:', error);
-            articleContainer.innerHTML = `<p>Failed to load article: ${articleId}</p>`;
-        }
-    }
-}
 
 // Initialize distributed content on page load
 function initializeDistributedContent() {
@@ -197,3 +135,123 @@ function updateHomePageCards() {
         homeGrid.appendChild(card);
     });
 }
+
+// Initialize games list view (no iframes, just clickable list)
+function initializeGamesList() {
+    const gamesContainer = document.getElementById('distributed-games');
+    if (!gamesContainer || !contentMap.games) return;
+    
+    const games = Object.entries(contentMap.games);
+    
+    gamesContainer.innerHTML = `
+        <div class="content-list">
+            ${games.map(([gameId, gameConfig]) => `
+                <div class="content-list-item" onclick="loadGameContent('${gameId}')">
+                    <div class="content-icon">🎮</div>
+                    <div class="content-info">
+                        <h3>${gameConfig.title}</h3>
+                        <p>${gameConfig.description}</p>
+                        <div class="linked-content">
+                            Related articles: ${gameConfig.linkedArticles?.map(id => 
+                                contentMap.articles?.[id]?.title || id
+                            ).join(', ') || 'None'}
+                        </div>
+                    </div>
+                    <div class="content-arrow">→</div>
+                </div>
+            `).join('')}
+        </div>
+    `;
+}
+
+// Initialize articles list view (no iframes, just clickable list)  
+function initializeArticlesList() {
+    const articlesContainer = document.getElementById('distributed-articles');
+    if (!articlesContainer || !contentMap.articles) return;
+    
+    const articles = Object.entries(contentMap.articles);
+    
+    articlesContainer.innerHTML = `
+        <div class="content-list">
+            ${articles.map(([articleId, articleConfig]) => `
+                <div class="content-list-item" onclick="loadArticleContent('${articleId}')">
+                    <div class="content-icon">📊</div>
+                    <div class="content-info">
+                        <h3>${articleConfig.title}</h3>
+                        <p>${articleConfig.description}</p>
+                        <div class="linked-content">
+                            Related games: ${articleConfig.linkedGames?.map(id => 
+                                contentMap.games?.[id]?.title || id
+                            ).join(', ') || 'None'}
+                        </div>
+                    </div>
+                    <div class="content-arrow">→</div>
+                </div>
+            `).join('')}
+        </div>
+    `;
+}
+
+// Load game content (replaces iframe approach)
+function loadGameContent(gameId) {
+    const gameConfig = contentMap.games?.[gameId];
+    if (!gameConfig) return;
+    
+    const gamesContainer = document.getElementById('distributed-games');
+    gamesContainer.innerHTML = `
+        <div class="content-viewer">
+            <div class="content-header">
+                <button class="back-btn" onclick="initializeGamesList()">← Back to Games</button>
+                <h2>${gameConfig.title}</h2>
+            </div>
+            <iframe src="${gameConfig.path}${gameConfig.file}" 
+                    width="100%" 
+                    height="600" 
+                    frameborder="0">
+            </iframe>
+            <div class="content-links">
+                <h3>Related Articles:</h3>
+                ${gameConfig.linkedArticles?.map(articleId => 
+                    `<button class="link-btn" onclick="showArticle('${articleId}')">
+                        📊 ${contentMap.articles?.[articleId]?.title || articleId}
+                    </button>`
+                ).join('') || '<p>No linked articles</p>'}
+            </div>
+        </div>
+    `;
+}
+
+// Load article content (replaces iframe approach)
+function loadArticleContent(articleId) {
+    const articleConfig = contentMap.articles?.[articleId];
+    if (!articleConfig) return;
+    
+    const articlesContainer = document.getElementById('distributed-articles');
+    articlesContainer.innerHTML = `
+        <div class="content-viewer">
+            <div class="content-header">
+                <button class="back-btn" onclick="initializeArticlesList()">← Back to Articles</button>
+                <h2>${articleConfig.title}</h2>
+            </div>
+            <iframe src="${articleConfig.path}${articleConfig.file}" 
+                    width="100%" 
+                    height="800" 
+                    frameborder="0">
+            </iframe>
+            <div class="content-links">
+                <h3>Related Games:</h3>
+                ${articleConfig.linkedGames?.map(gameId => 
+                    `<button class="link-btn" onclick="showGame('${gameId}')">
+                        🎮 ${contentMap.games?.[gameId]?.title || gameId}
+                    </button>`
+                ).join('') || '<p>No linked games</p>'}
+            </div>
+        </div>
+    `;
+}
+
+// Make new functions globally available
+window.loadGameContent = loadGameContent;
+window.loadArticleContent = loadArticleContent;
+window.initializeGamesList = initializeGamesList;
+window.initializeArticlesList = initializeArticlesList;

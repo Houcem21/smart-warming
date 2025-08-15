@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Articles - Smart Warming</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌍</text></svg>">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: #0f1419;
+            color: #ffffff;
+            min-height: 100vh;
+        }
+        
+        .header {
+            background: #1a1f2e;
+            padding: 1rem;
+            border-bottom: 2px solid #00ff88;
+        }
+        
+        .nav {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #00ff88;
+        }
+        
+        .nav-link {
+            text-decoration: none;
+            color: #00ff88;
+            padding: 0.5rem 1rem;
+            border: 2px solid transparent;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            border-color: #00ff88;
+            background: #00ff88;
+            color: #0f1419;
+        }
+        
+        .main {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .content-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .content-list-item {
+            background: #1a1f2e;
+            border: 2px solid #333;
+            border-radius: 8px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .content-list-item:hover {
+            border-color: #00ff88;
+            transform: translateY(-2px);
+        }
+        
+        .content-icon {
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+        
+        .content-info {
+            flex: 1;
+        }
+        
+        .content-info h3 {
+            color: #00ff88;
+            margin: 0 0 0.5rem 0;
+        }
+        
+        .content-info p {
+            margin: 0 0 0.5rem 0;
+            color: #ccc;
+        }
+        
+        .linked-content {
+            font-size: 0.9rem;
+            color: #888;
+        }
+        
+        .content-arrow {
+            font-size: 1.5rem;
+            color: #00ff88;
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">🌍 Smart Warming</div>
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="games.html" class="nav-link">Games</a>
+            <a href="articles.html" class="nav-link active">Articles</a>
+        </nav>
+    </header>
+
+    <main class="main">
+        <h1>Data Analysis Articles</h1>
+        <p>Explore environmental data through Python-powered analysis and visualizations.</p>
+        
+        <div id="articles-list" class="content-list">
+            <p>Loading articles...</p>
+        </div>
+    </main>
+
+    <script>
+        // Load and display articles list
+        async function loadArticlesList() {
+            try {
+                const response = await fetch('content-map.json');
+                const contentMap = await response.json();
+                const articlesList = document.getElementById('articles-list');
+                
+                if (!contentMap.articles || Object.keys(contentMap.articles).length === 0) {
+                    articlesList.innerHTML = '<p>No articles available yet.</p>';
+                    return;
+                }
+                
+                const articles = Object.entries(contentMap.articles);
+                
+                articlesList.innerHTML = articles.map(([articleId, articleConfig]) => `
+                    <a href="article.html?id=${articleId}" class="content-list-item">
+                        <div class="content-icon">📊</div>
+                        <div class="content-info">
+                            <h3>${articleConfig.title}</h3>
+                            <p>${articleConfig.description}</p>
+                            <div class="linked-content">
+                                Related games: ${articleConfig.linkedGames?.map(id => 
+                                    contentMap.games?.[id]?.title || id
+                                ).join(', ') || 'None'}
+                            </div>
+                        </div>
+                        <div class="content-arrow">→</div>
+                    </a>
+                `).join('');
+            } catch (error) {
+                console.error('Failed to load articles:', error);
+                document.getElementById('articles-list').innerHTML = '<p>Failed to load articles.</p>';
+            }
+        }
+        
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', loadArticlesList);
+    </script>
+</body>
+</html>

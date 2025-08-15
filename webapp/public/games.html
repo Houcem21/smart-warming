@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Warming</title>
+    <title>Games - Smart Warming</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌍</text></svg>">
     <style>
         * {
@@ -16,6 +16,7 @@
             font-family: Arial, sans-serif;
             background: #0f1419;
             color: #ffffff;
+            min-height: 100vh;
         }
         
         .header {
@@ -57,105 +58,119 @@
             margin: 0 auto;
         }
         
-        
-        .home-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
+        .content-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
         }
         
-        .content-card {
+        .content-list-item {
             background: #1a1f2e;
             border: 2px solid #333;
             border-radius: 8px;
             padding: 1.5rem;
             cursor: pointer;
             transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
             text-decoration: none;
             color: inherit;
-            display: block;
         }
         
-        .content-card:hover {
+        .content-list-item:hover {
             border-color: #00ff88;
             transform: translateY(-2px);
         }
         
-        .content-card h3 {
+        .content-icon {
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+        
+        .content-info {
+            flex: 1;
+        }
+        
+        .content-info h3 {
             color: #00ff88;
             margin: 0 0 0.5rem 0;
         }
         
-        .content-card p {
-            margin: 0;
+        .content-info p {
+            margin: 0 0 0.5rem 0;
             color: #ccc;
         }
         
+        .linked-content {
+            font-size: 0.9rem;
+            color: #888;
+        }
+        
+        .content-arrow {
+            font-size: 1.5rem;
+            color: #00ff88;
+            flex-shrink: 0;
+        }
     </style>
 </head>
 <body>
     <header class="header">
         <nav class="nav">
             <div class="logo">🌍 Smart Warming</div>
-            <a href="index.html" class="nav-link active">Home</a>
-            <a href="games.html" class="nav-link">Games</a>
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="games.html" class="nav-link active">Games</a>
             <a href="articles.html" class="nav-link">Articles</a>
         </nav>
     </header>
 
     <main class="main">
-        <h1>Welcome to Smart Warming</h1>
-        <p>Explore the environmental impact of AI and computing through interactive games and data analysis.</p>
+        <h1>Interactive Games</h1>
+        <p>Explore environmental impact through interactive simulations and games.</p>
         
-        <div id="home-grid" class="home-grid">
-            <p>Loading content...</p>
+        <div id="games-list" class="content-list">
+            <p>Loading games...</p>
         </div>
     </main>
 
     <script>
-        // Load and display home content
-        async function loadHomeContent() {
+        // Load and display games list
+        async function loadGamesList() {
             try {
                 const response = await fetch('content-map.json');
                 const contentMap = await response.json();
-                const homeGrid = document.getElementById('home-grid');
+                const gamesList = document.getElementById('games-list');
                 
-                let content = '';
-                
-                // Add game cards
-                if (contentMap.games) {
-                    Object.entries(contentMap.games).forEach(([gameId, gameConfig]) => {
-                        content += `
-                            <a href="game.html?id=${gameId}" class="content-card">
-                                <h3>🎮 ${gameConfig.title}</h3>
-                                <p>${gameConfig.description}</p>
-                            </a>
-                        `;
-                    });
+                if (!contentMap.games || Object.keys(contentMap.games).length === 0) {
+                    gamesList.innerHTML = '<p>No games available yet.</p>';
+                    return;
                 }
                 
-                // Add article cards
-                if (contentMap.articles) {
-                    Object.entries(contentMap.articles).forEach(([articleId, articleConfig]) => {
-                        content += `
-                            <a href="article.html?id=${articleId}" class="content-card">
-                                <h3>📊 ${articleConfig.title}</h3>
-                                <p>${articleConfig.description}</p>
-                            </a>
-                        `;
-                    });
-                }
+                const games = Object.entries(contentMap.games);
                 
-                homeGrid.innerHTML = content || '<p>No content available yet.</p>';
+                gamesList.innerHTML = games.map(([gameId, gameConfig]) => `
+                    <a href="game.html?id=${gameId}" class="content-list-item">
+                        <div class="content-icon">🎮</div>
+                        <div class="content-info">
+                            <h3>${gameConfig.title}</h3>
+                            <p>${gameConfig.description}</p>
+                            <div class="linked-content">
+                                Related articles: ${gameConfig.linkedArticles?.map(id => 
+                                    contentMap.articles?.[id]?.title || id
+                                ).join(', ') || 'None'}
+                            </div>
+                        </div>
+                        <div class="content-arrow">→</div>
+                    </a>
+                `).join('');
             } catch (error) {
-                console.error('Failed to load content:', error);
-                document.getElementById('home-grid').innerHTML = '<p>Failed to load content.</p>';
+                console.error('Failed to load games:', error);
+                document.getElementById('games-list').innerHTML = '<p>Failed to load games.</p>';
             }
         }
         
         // Initialize on page load
-        document.addEventListener('DOMContentLoaded', loadHomeContent);
+        document.addEventListener('DOMContentLoaded', loadGamesList);
     </script>
 </body>
 </html>

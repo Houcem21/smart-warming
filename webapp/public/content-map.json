@@ -6,6 +6,13 @@
       "path": "content/games/pigeon-tracker/",
       "file": "index.html",
       "linkedArticles": ["pigeon-analysis"]
+    },
+    "vector-painter": {
+      "title": "Vector Painter",
+      "description": "Paint Vectors",
+      "path": "content/games/vector-painter/",
+      "file": "index.html",
+      "linkedArticles": []
     }
   },
   "articles": {
